@@ -1,0 +1,33 @@
+.button {
+    height: 3rem;
+    border-radius: 3rem;
+    background-color: var(--gray-850);
+    border: 0;
+    padding: 0 1.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--white);
+
+    svg {
+        width: 20px;
+        height: 20px;
+    } 
+    
+    // aticar estilo apenas no fvg da esquerda
+    svg:first-child {
+        margin-right: 1rem;
+    }
+
+    transition: filter 0.2s;
+
+    &:hover {
+        filter: brightness(0.8)
+    }
+
+    .closeIcon {
+        margin-left: 1rem;
+    }
+}
