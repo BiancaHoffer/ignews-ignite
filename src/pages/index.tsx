@@ -30,7 +30,7 @@ export default function Home({ product }: HomeProps) {
             Get access to all the publications <br />
             <strong>for {product.amount} month</strong>
           </p>
-          <SubscribeButton />
+          <SubscribeButton priceId={product.priceId} />
         </section>
 
         <img src="/images/girlCoding.svg" />
@@ -46,8 +46,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
   const product = {
     priceId: price.id, 
-    amount: (price.unit_amount / 100), 
+    amount: new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD'
+    }).format((price.unit_amount / 100)), 
   }
+
+  console.log(product.priceId)
 
   return {
     props: {
