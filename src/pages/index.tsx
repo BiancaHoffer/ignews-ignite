@@ -16,7 +16,7 @@ export default function Home({ product }: HomeProps) {
   return (
     <>
       <Head>
-        <title>ig.newss</title>
+        <title>ig.news</title>
       </Head>
 
       <main className={styles.contentContainer}>
@@ -51,7 +51,7 @@ export const getStaticProps: GetStaticProps = async () => {
       currency: 'USD'
     }).format((price.unit_amount / 100)), 
   }
-  
+
   return {
     props: {
       product
