@@ -6,16 +6,18 @@ import { signIn, useSession, signOut } from 'next-auth/react';
 
 export function SignInButton() {
   const { status, data } = useSession()  
-  console.log(data);
-
-  return status === "authenticated" ? (
-<   button 
+ 
+  return status === "loading" ? (
+    <p>Carregando...</p>
+    
+  ) : status === "authenticated" ? (
+    <button 
         type="button"
         className={styles.button}
-        onClick={() => signOut}
-        >
+        onClick={() => signOut()}
+    >
         <FaGithub color="#04d361" />
-        Bianca Hoffer
+        {data.user?.name}
         <FiX color='#737380' className={styles.closeIcon} />
     </button>
   ) : (
