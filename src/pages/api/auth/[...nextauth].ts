@@ -13,7 +13,7 @@ export default NextAuth({
             }
         }),
     ],
-    secret: process.env.NEXTAUTH_SECRET,
+    secret: "5029e398787cfc6856ebe923a4299ac8",
     //jwt: { 
     //    secret: process.env.NEXTAUTH_JWT_KEY,
     //},
