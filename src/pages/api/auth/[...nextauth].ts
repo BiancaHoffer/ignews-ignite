@@ -17,6 +17,6 @@ export default NextAuth({
     //jwt: { 
     //    secret: process.env.NEXTAUTH_JWT_KEY,
     //},
-    //debug: true,
+    debug: true,
 })
 
