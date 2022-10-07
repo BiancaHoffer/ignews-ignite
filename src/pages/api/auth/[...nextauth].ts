@@ -17,15 +17,20 @@ export default NextAuth({
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
-        async signIn({user, email}) {
-            console.log(user.email)
-            
-             await fauna.query(
-                query.Create(
-                    query.Collection('users'),
-                    { data: user.email}
-                )
+        async signIn({user}) {
+            const { email } = user    
+    
+            try {
+                await fauna.query(
+                    query.Create(
+                        query.Collection('users'),
+                        { data: { email } }
+                    )
             )
+            } catch (error) {
+                console.error(error);
+                return false;
+            }
 
             return true;
         }
