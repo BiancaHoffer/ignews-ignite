@@ -24,7 +24,7 @@ export function SubscribeButton({ priceId }: SubscribeButtonProps) {
       const stripe = await getStripePublic()
 
       stripe.redirectToCheckout({ sessionId: sessionId });
-      console.log(response.data.sessionId)
+    
     } catch (error) {
       console.log(error)
     }
