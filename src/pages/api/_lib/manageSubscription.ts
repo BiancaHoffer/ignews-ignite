@@ -1,54 +1,59 @@
 import { fauna } from "../../../services/fauna";
 import { query as q } from 'faunadb'
-import stripe from "../../../services/stripe";
-// salvar inscrição no banco de dados
+import { stripe } from "../../../services/stripe";
+
 export async function saveSubscription(
-    subscriptionId: string,
-    customerId: string, 
-    createAction = false
+  subscriptionId: string,
+  customerId: string,
+  createAction = false
 ) {
-    const userRef = await fauna.query(
-        q.Select(
-            "ref",
-            q.Get(
-                q.Match(
-                    q.Index("user_by_stripe_customer_id"),
-                    customerId
-                )
-            )
+  const userRef = await fauna.query(
+    q.Select(
+      "ref",
+      q.Get(
+        q.Match(
+          q.Index('user_by_stripe_customer_id'),
+          customerId
         )
+      )
     )
+  )
 
-    const subscription = await stripe.subscriptions.retrieve(subscriptionId)
+  const subscription = await stripe.subscriptions.retrieve(subscriptionId)
 
-    const subscriptionData = {
-        id: subscription.id,
-        userId: userRef,
-        status: subscription.status,
-        price_id: subscription.items.data[0].price.id,
-    }
+  const subscriptionData = {
+    id: subscription.id,
+    userId: userRef,
+    status: subscription.status,
+    price_id: subscription.items.data[0].price.id,
+  }
 
-    if (createAction) {
-        await fauna.query(
-            q.Create(
-                q.Collection('subscriptions'),
-                { data: subscriptionData }
+  if(createAction) {
+    await fauna.query(
+      q.Create(
+        q.Collection('subscriptions'),
+        { data: subscriptionData }
+      )
+    )
+  } else {
+    await fauna.query(
+      q.Replace(
+        q.Select(
+          "ref", 
+          q.Get(
+            q.Match(
+              q.Index('subscription_by_id'),
+              subscriptionId
             )
-        )
-    } else {
-        await fauna.query(
-            q.Update( // atualiza documento inteiro. Update atualiza quando específico
-                q.Select(
-                    "ref",
-                    q.Get(
-                        q.Match(
-                            q.Index('subscription_by_id'),
-                            subscription.id
-                        )
-                    )
-                ),
-                { data: subscriptionData } // dados que quero atualizar
-            )
-        )
-    }
+          )
+        ),
+        { data: subscriptionData }
+      ),
+    )
+  }
 }
+
+
+
+
+            
