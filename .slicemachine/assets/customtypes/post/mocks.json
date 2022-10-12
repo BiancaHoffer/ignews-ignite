@@ -1,0 +1,30 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "post",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "title": "equal",
+    "excerpt": [
+      {
+        "type": "paragraph",
+        "text": "Adipisicing amet enim nulla in consectetur irure in consequat.",
+        "spans": []
+      }
+    ],
+    "content": [
+      {
+        "type": "paragraph",
+        "text": "Ullamco nostrud ipsum ipsum deserunt ipsum aliqua reprehenderit ea Lorem. Adipisicing occaecat proident pariatur eu consequat culpa mollit adipisicing mollit dolore Lorem pariatur in.",
+        "spans": []
+      }
+    ]
+  }
+}

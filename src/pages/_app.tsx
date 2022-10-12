@@ -8,10 +8,10 @@ import '../styles/global.scss';
 
 function MyApp({ Component, pageProps}: AppProps<{session: Session}>) {
   return (
-      <NextAuthSessionProvider session={pageProps.session}>
-        <Header /> 
-        <Component {...pageProps} />
-      </NextAuthSessionProvider>
+    <NextAuthSessionProvider session={pageProps.session}>
+      <Header /> 
+      <Component {...pageProps} />
+    </NextAuthSessionProvider>
   )
 };
 
