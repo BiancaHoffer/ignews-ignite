@@ -4,6 +4,7 @@ import { getPrismicClient } from '../../services/prismic';
 import styles from './styles.module.scss';
 import { asText } from '@prismicio/helpers';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 interface Post {
   slug: string;
@@ -17,6 +18,7 @@ interface PostsProps {
 }
 
 export default function Posts({ posts }: PostsProps) { 
+  const { data: session } = useSession()
 
   return (
     <>
@@ -27,7 +29,11 @@ export default function Posts({ posts }: PostsProps) {
       <main className={styles.container}>
         <div className={styles.posts}>
           {posts.map(post => (
-            <Link href={`/posts/${post.slug}`} key={post.slug}>
+            <Link href={!session?.activeSubscription 
+                ? `/posts/preview/${post.slug}` 
+                : `/posts/${post.slug}`
+              } 
+              key={post.slug}>
               <a>
                 <time>{post.updatedAt}</time>
                 <strong>{post.title}</strong>
@@ -69,6 +75,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: { 
       posts
     },
-    revalidate: 1,
+    revalidate: 60 * 30, // 30 minutes
   }
 }
